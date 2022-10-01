@@ -5,22 +5,23 @@ import datetime
 # application module
 def Application():
     os.system('clear')
-    running = 1
+    running = True
     today = datetime.datetime.now()
     while running != False:
         option = int(input('{}\nEscolha uma opção em seguida pressione enter para continuar.\nEditar (1)\nCalcular idade (2)\nSair (0)\n:'.format(Date())))
         if option > 2 or option < 0:
-            print('Erro: USB 04')
+            print('\nErro: USB 04')
             running = False
         elif option == 0:
             running = False
         elif option == 2:
             running = False
-            print('Você tem {} anos.'.format(int(today.strftime('%Y')) - Date()[1]))
+            print('\nVocê tem {} anos.'.format(int(today.strftime('%Y')) - year))
         else:
             os.system('clear')
 # get date function
 def Date():
+    global year
     monthdict = {
     1:'Janeiro',
     2:'Fevereiro',
@@ -39,14 +40,14 @@ def Date():
     if year > 9999 or year < 0:
         return "Erro: USB 01\n"
     else:
-        month = int(input('Digite o mês que você nasceu.\nEx: 10: '))
+        month = int(input('\nDigite o mês que você nasceu.\nEx: 10: '))
         if month > 12 or month < 1:
             return 'Erro: USB 02\n'
         else:
-            day = int(input('Digite o dia que você nasceu.\nEx: 21: '))
+            day = int(input('\nDigite o dia que você nasceu.\nEx: 21: '))
             if day > 31 or day < 1:
                 return 'Erro: USB 03\n'
             else:
-                return "Você nasceu no dia {} de {} de {}.".format(day, monthdict[month], year)
+                return "\nVocê nasceu no dia {} de {} de {}.".format(day, monthdict[month], year)
 # application start
 Application()
