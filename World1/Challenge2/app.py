@@ -31,6 +31,16 @@ def Application(self, master=None):
         self.menu.destroy()
         self.result.destroy()
         Start()
+    # Countdown
+    def Countdown():
+        dob = datetime.datetime(int(self.today.strftime('%Y')), int(self.date[1]), int(self.date[2]))
+        calc = str(dob - self.today).split()
+        if calc[0][0] != '-':
+            count = Label(self.result, height=2, fg='green', font=('Times New Roman', 15), text='Faltam {} dias para seu {}º aniversário'.format(calc[0], int(self.today.strftime('%Y')) - self.year))
+        else:
+            calc = str(self.today - dob).split()
+            count = Label(self.result, height=2, fg='green', font=('Times New Roman', 15), text='Faltam {} dias para seu {}º aniversário.'.format(calc[0], int(self.today.strftime('%Y')) + 1 - self.year))
+        count.pack(pady=(0, 8))
     # Start window
     def Start():
         days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
@@ -71,7 +81,7 @@ def Application(self, master=None):
         Menu()
     # result window
     def Result():
-        today = datetime.datetime.now()
+        self.today = datetime.datetime.now()
         monthdict = {
             'Janeiro': 1,
             'Fevereiro': 2,
@@ -86,23 +96,23 @@ def Application(self, master=None):
             'Novembro': 11,
             'Dezembro': 12
         }
-        date = []
-        year = int(self.year.get())
-        date.append(year)
+        self.date = []
+        self.year = int(self.year.get())
+        self.date.append(self.year)
         month = str(self.month.get())
-        date.append(month)
-        date[1] = monthdict[month]
+        self.date.append(month)
+        self.date[-1] = monthdict[month]
         day = int(self.day.get())
-        date.append(day)
-        print(date)
+        self.date.append(day)
         self.start.destroy()
         self.menu.destroy()
         # result window widget
         self.result = Frame(self.top)
         self.result.pack()
         # result label
-        result = Label(self.result, height=4, fg='green', font=('bold', 12), text='Você nasceu no dia {}\nde {} do ano {}.\n{} anos.'.format(date[-1], month, date[0], int(today.strftime('%Y')) - year))
+        result = Label(self.result, height=4, fg='green', font=('bold', 12), text='Você nasceu no dia {}\nde {} do ano {}.\n{} anos.'.format(self.date[-1], month, self.date[0], int(self.today.strftime('%Y')) - self.year))
         result.pack()
+        Countdown()
         Menu()
         self.apply['command'] = Reset
         self.apply['text'] = 'Voltar'
