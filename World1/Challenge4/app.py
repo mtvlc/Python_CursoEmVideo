@@ -12,8 +12,6 @@ def Application(self, master=None):
         Start()
     # enter button function
     def Enter(event):
-        # get user input
-        self.text = self.userInput.get('1.0', 'end-1c').strip()
         Result()
     # menu module
     def Menu():
@@ -42,11 +40,45 @@ def Application(self, master=None):
         Menu()
     # Result window module
     def Result():
+        # get user input
+        self.text = self.userInput.get('1.0', 'end-1c').strip().split()
         self.startWidget.destroy()
         self.menu.destroy()
         # result widget
         self.result = Frame(self.top)
         self.result.pack()
+        # details
+        details = Label(self.result, height=3, font=('', 18, 'bold'), text='Detalhes do texto.')
+        details.pack()
+        # type and length
+        tandl = Label(self.result, fg='#cb5017', font=('', 12), text='O texto é do tipo String (str).\nO texto contém {} caracteres.'.format(len(' '.join(self.text))))
+        tandl.pack()
+        # only numbers
+        numbers = Label(self.result, fg='#cb5017', font=('', 12), text='O texto contém apenas números.')
+        # only letters
+        letters = Label(self.result, fg='#cb5017', font=('', 12), text='O texto contém apenas letras.')
+        # alphanumeric
+        alphanum = Label(self.result, fg='#cb5017', font=('', 12), text='O texto é alfanumérico')
+        # 'captalizing'
+        cap = Label(self.result, fg='#cb5017', font=('', 12), text='')
+        # if user input is only numbers
+        if ''.join(self.text).isnumeric() == True:
+            numbers.pack()
+        else:
+            if ''.join(self.text).isalnum() == True:
+                alphanum.pack()
+            else:
+                letters.pack()
+        # if user input neither only uppercase or lowercase
+        if ''.join(self.text).isupper() == False and ''.join(self.text).islower() == False:
+            cap['text'] = 'O texto contém letras maiúsculas e minúsculas.'
+        # if user input is only uppercase
+        elif ''.join(self.text).isupper() == True:
+            cap['text'] = 'O texto contém apenas letras maiúsculas.'
+        # if user input is only lowercase
+        else:
+            cap['text'] = 'O texto contém apenas letras minúsculas.'
+        cap.pack()
         Menu()
         self.apply['command'] = Reset
         self.apply['text'] = 'Voltar'
