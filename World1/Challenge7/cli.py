@@ -35,7 +35,7 @@ def Application():
                     else:
                         for x in grades:
                             sum += x
-                        print('A sua média é = {}'.format(sum // len(grades)))
+                        print('A sua média é = {:.1f}'.format(sum / len(grades)))
                         running = False
                 else:
                     Clear()
