@@ -4,6 +4,14 @@ from os import system
 from tkinter import *
 # application module
 def Application(self, master=None):
+    # reset function
+    def Reset():
+        # destroy windows
+        self.result.destroy()
+        # destroy menu
+        self.menu.destroy()
+        # start
+        Start()
     # enter event
     def Enter(event):
         Result()
@@ -29,9 +37,10 @@ def Application(self, master=None):
         # user input widget
         self.userInput = Frame(self.starting)
         self.userInput.pack(pady=(5, 5))
-        # user input # price
+        # user input # price # label
         self.priceLabel = Label(self.userInput, text='R$')
         self.priceLabel.pack(side=LEFT)
+        # user input # price
         self.price = Entry(self.userInput, width=12)
         self.price.insert(END, 27.85)
         self.price.bind('<Return>', Enter)
@@ -40,7 +49,48 @@ def Application(self, master=None):
         Menu()
     # result window
     def Result():
-        pass
+        # get user input price
+        input = self.price.get()
+        # check if user input have comma if true replace to '.'
+        if input.find(',') != -1:
+            price = input.replace(',', '.')
+        else:
+            price = input
+        # destroy starting window and menu
+        self.starting.destroy()
+        self.menu.destroy()
+        # result widget
+        self.result = Frame(self.top)
+        self.result.pack(pady=(45, 35))
+        try:
+            price = float(price)
+            # old price
+            # widget
+            self.old = Frame(self.result)
+            self.old.pack()
+            # label
+            oldPriceLabel = Label(self.old, text='O produto custava R$')
+            oldPriceLabel.pack(side=LEFT)
+            # price
+            oldPrice = Label(self.old, fg='orange', text='{:.2f}'.format(price))
+            oldPrice.pack(side=LEFT)
+            # discount
+            # widget
+            self.new = Frame(self.result)
+            self.new.pack()
+            # label
+            discountLabel = Label(self.new, text='Com 5% de desconto custará R$')
+            discountLabel.pack(side=LEFT)
+            # price
+            newPrice = Label(self.new, fg='green', text='{:.2f}'.format(price * 95 / 100))
+            newPrice.pack(side=LEFT)
+        except ValueError:
+            error = Label(self.result, height=1, fg='red', font=('', 15, 'bold'), text='Erro: USB 01')
+            error.pack(pady=(5, 5))
+        # create menu
+        Menu()
+        self.apply['command'] = Reset
+        self.apply['text'] = 'Voltar'
     # clean terminal at application starts
     system('clear')
     # top frame
