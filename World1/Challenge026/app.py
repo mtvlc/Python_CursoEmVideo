@@ -21,9 +21,9 @@ def Application(self, master=None):
         self.last = self.phrase.upper().rfind('A')
         if self.count == 0 or self.count == 1:
             if self.count == 0:
-                tkinter.messagebox.showinfo('Result', 'A letra "A" não aparece nenhuma vez no texto')
+                tkinter.messagebox.showinfo('Result', 'A letra "A" não aparece nenhuma vez no texto.')
             else:
-                tkinter.messagebox.showinfo('Result', 'A letra "A" aparece 1 vez no texto ela aparece na posição {}'.format(self.first + 1))
+                tkinter.messagebox.showinfo('Result', 'A letra "A" aparece 1 vez no texto ela aparece na posição {}.'.format(self.first + 1))
         else:
             tkinter.messagebox.showinfo('Result', 'A letra "A" aparace {} vezes no texto. Ela aparece pela 1ª vez na {} posição e pela última vez na posição {}.'.format(self.count, self.first + 1, self.last + 1))
     system('clear') # clean terminal at program starts
