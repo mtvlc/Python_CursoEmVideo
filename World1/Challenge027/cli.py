@@ -10,6 +10,9 @@ def Application():
     name = str(input('Nome Completo: ')).strip().title().split()
     Clear() # clear terminal
     # result
-    print('\033[1mPrimeiro nome:\033[m \033[1:33m{}\033[m\n\033[1m  Último nome: \033[33m{}\033[m'.format(name[0], name[-1]))
+    if len(name) != 1:
+        print('\033[1mPrimeiro nome: \033[33m{}\033[m\n\033[1m  Último nome: \033[33m{}\033[m'.format(name[0], name[-1]))
+    else:
+        print('\033[1mPrimeiro nome: \033[33m{}\033[m'.format(name[0]))
 # application start
 Application()
